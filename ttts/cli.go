@@ -17,7 +17,7 @@ func Run() {
     app.Usage = "Runs as either a client or server for playing tic tac toe."
 
     app.Flags = []cli.Flag {
-        cli.BoolTFlag {
+        cli.BoolFlag {
             Name: "client, c",
             Usage: "Run tic tac toe in client mode.",
             Destination: &client,
@@ -37,10 +37,10 @@ func Run() {
     }
 
     app.Action = func(args *cli.Context) error {
-        if (client) {
-            run_client(address, port)
+        if client {
+            runClient(address, port)
         } else {
-            run_server(address, port)
+            runServer(address, port)
         }
 
         return nil
