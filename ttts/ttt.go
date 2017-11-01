@@ -7,21 +7,34 @@ import(
     "net"
     "time"
     "strings"
-    //"github.com/jneander/tic-tac-toe-go/ttt"
+    "github.com/jneander/tic-tac-toe-go"
 )
 
 
 func playGame(conn net.Conn, board string, mark string) {
-    //hasWinner := false
+    hasWinner := false
+    winner := ""
 
-    for {
-        if makeMove(&board, &mark) {
-            return
-            }
+    for !hasWinner {
+        hasWinner, winner = makeMove(&board, &mark)
 
         if !sendBoard(&conn, &board) {
             conn.Close()
             return
+        }
+
+        if hasWinner {
+            for attempts := 0; attempts < 10; attempts++ {
+                _, err := conn.Write([]byte(winner))
+
+                if err != nil {
+                    fmt.Fprintf(os.Stderr, "Failed to write winner, trying again...\n")
+                } else {
+                    break
+                }
+
+                time.Sleep(time.Second)
+            }
         }
 
         if !readBoard(&conn, &board) {
@@ -29,20 +42,22 @@ func playGame(conn net.Conn, board string, mark string) {
             return
         }
     }
+
+    fmt.Println("Game Over")
     return
 }
 
 
-func makeMove(board *string, mark *string) bool {
+func makeMove(board *string, mark *string) (bool, string) {
     for i := 0; i < len(*board); i++ {
         if (*board)[i] == ' ' {
             tmp := []rune(*board)
             tmp[i] = []rune(*mark)[0]
             *board = string(tmp)
-            return false
+            return false, ""
         }
     }
-    return true
+    return true, "tie\n"
 }
 
 
@@ -50,6 +65,7 @@ func sendBoard(conn *net.Conn, board *string) bool {
     convertToNetBoard(board)
 
     for attempts := 0; attempts < 10; attempts++ {
+        fmt.Printf("Sending board: %s", *board)
         _, err := (*conn).Write([]byte(*board))
 
         if err != nil {
@@ -68,13 +84,13 @@ func sendBoard(conn *net.Conn, board *string) bool {
 
 func readBoard(conn *net.Conn, board *string) bool {
     for attempts := 0; attempts < 10; attempts++ {
-        newBoard := make([]byte, 13)
+        newBoard := make([]byte, 12)
         _, err := (*conn).Read(newBoard)
 
         if err != nil {
             fmt.Fprintf(os.Stderr, "Failed to read board, trying again...\n")
         } else {
-            fmt.Printf("Recieved board: %s\n", string(newBoard))
+            fmt.Printf("Recieved board: %s", string(newBoard))
             *board = string(newBoard)
             convertFromNetBoard(board)
             return true
