@@ -15,6 +15,7 @@ func runServer(address string, port int) {
 
     fmt.Printf("Listening on %s:%d\n", address, port)
     ln, err := net.Listen("tcp", server)
+
     if err != nil {
         fmt.Fprintf(os.Stderr, "Failed to listen on: %s\n", server)
         os.Exit(1)
@@ -22,26 +23,21 @@ func runServer(address string, port int) {
 
     for {
         conn, err := ln.Accept()
+
         if err != nil {
             fmt.Fprintf(os.Stderr, "Failed to accept connection.\n")
+            conn.Close()
             os.Exit(1)
         } else {
-            newGame(conn)
-        }
-    }
-    return
-}
+            fmt.Printf("Connection recieved, starting new game...\n")
+            board := ""
 
-
-func newGame(conn net.Conn) {
-    var board = make([]byte, 13)
-    for {
-        _, err := conn.Read(board)
-        if err != nil {
-            fmt.Fprintf(os.Stderr, "Failed to read board.\n")
-            os.Exit(1)
-        } else {
-            fmt.Printf("Recieved board: %s\n", string(board))
+            if readBoard(&conn, &board) {
+                playGame(conn, board, "o")
+            } else {
+                fmt.Fprintf(os.Stderr, "Failed to read board.\n")
+                conn.Close()
+            }
         }
     }
     return

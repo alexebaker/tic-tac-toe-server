@@ -1,3 +1,6 @@
 [submodule "vendor/github.com/urfave/cli"]
 	path = vendor/github.com/urfave/cli
 	url = git@github.com:urfave/cli.git
+[submodule "vendor/github.com/jneander/tic-tac-toe-go"]
+	path = vendor/github.com/jneander/tic-tac-toe-go
+	url = git@github.com:jneander/tic-tac-toe-go.git
