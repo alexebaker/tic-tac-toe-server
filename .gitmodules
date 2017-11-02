@@ -1,0 +1,6 @@
+[submodule "ttts/cli"]
+	path = ttts/cli
+	url = https://github.com/urfave/cli
+[submodule "ttts/tic-tac-toe-go"]
+	path = ttts/tic-tac-toe-go
+	url = https://github.com/jneander/tic-tac-toe-go

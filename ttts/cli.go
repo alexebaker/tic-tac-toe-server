@@ -3,7 +3,7 @@ package ttts
 
 import(
     "os"
-    "github.com/urfave/cli"
+    "./cli"
 )
 
 
