@@ -40,6 +40,7 @@ func runServer(address string, port int) {
                 conn.Close()
             }
         }
+        //conn.Close()
     }
     return
 }

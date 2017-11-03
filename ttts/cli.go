@@ -11,6 +11,7 @@ func Run() {
     var address string = ""
     var port int = 0
     var client bool = false
+    var numGames int = 1
 
     app := cli.NewApp()
     app.Name = "Tic Tac Toe Sever"
@@ -34,11 +35,17 @@ func Run() {
             Usage: "If using --client, then this is the port of the server to connect to, otherwise it is the port to listen on.",
             Destination: &port,
         },
+        cli.IntFlag {
+            Name: "num, n",
+            Value: 1,
+            Usage: "If using --client, then this is the number of games to play in serial.",
+            Destination: &numGames,
+        },
     }
 
     app.Action = func(args *cli.Context) error {
         if client {
-            runClient(address, port)
+            runClient(address, port, numGames)
         } else {
             runServer(address, port)
         }
