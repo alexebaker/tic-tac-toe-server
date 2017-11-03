@@ -5,6 +5,7 @@ import(
     "fmt"
     "os"
     "net"
+    "./tic-tac-toe-go/ttt"
 )
 
 
@@ -30,10 +31,10 @@ func runServer(address string, port int) {
             os.Exit(1)
         } else {
             fmt.Printf("Connection recieved, starting new game...\n")
-            board := ""
+            game := ttt.NewGame()
 
-            if readBoard(&conn, &board) {
-                playGame(conn, board, "o")
+            if readBoard(conn, game) {
+                playGame(conn, game, "O")
             } else {
                 fmt.Fprintf(os.Stderr, "Failed to read board.\n")
                 conn.Close()

@@ -5,6 +5,7 @@ import(
     "fmt"
     "os"
     "net"
+    "./tic-tac-toe-go/ttt"
 )
 
 
@@ -24,8 +25,8 @@ func runClient(address string, port int) {
 
     fmt.Printf("Sucess! Starting new game.\n")
 
-    board := "         "
-    playGame(conn, board, "x")
+    game := ttt.NewGame()
+    playGame(conn, game, "X")
     conn.Close()
     return
 }
