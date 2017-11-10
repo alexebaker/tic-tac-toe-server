@@ -32,7 +32,6 @@ func runServer(address string, port int) {
         if err != nil {
             fmt.Fprintf(os.Stderr, "Failed to accept connection.\n")
             conn.Close()
-            os.Exit(1)
         } else {
             fmt.Printf("Connection recieved, starting new game...\n")
             game := ttt.NewGame()
