@@ -1,9 +1,15 @@
+/***********************************************
+ * The file initializes the cli arguments.     *
+ * The logic for parsing the argument is from: *
+ * https://github.com/urfave/cli               *
+ ***********************************************/
+
 package ttts
 
 
 import(
     "os"
-    "./cli"
+    "./cli" // https://github.com/urfave/cli
 )
 
 

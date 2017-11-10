@@ -1,3 +1,7 @@
+/******************************************************
+ * The file has the logic for running in server mode. *
+ ******************************************************/
+
 package ttts
 
 
@@ -5,7 +9,7 @@ import(
     "fmt"
     "os"
     "net"
-    "./tic-tac-toe-go/ttt"
+    "./tic-tac-toe-go/ttt" // https://github.com/jneander/tic-tac-toe-go
 )
 
 

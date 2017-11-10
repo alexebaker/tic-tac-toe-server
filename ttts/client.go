@@ -1,3 +1,7 @@
+/******************************************************
+ * The file has the logic for running in client mode. *
+ ******************************************************/
+
 package ttts
 
 
@@ -6,7 +10,7 @@ import(
     "os"
     "net"
     "time"
-    "./tic-tac-toe-go/ttt"
+    "./tic-tac-toe-go/ttt" // https://github.com/jneander/tic-tac-toe-go
 )
 
 

@@ -1,3 +1,9 @@
+/*************************************************************
+ * The file has the logic for playing a game of tic tac toe. *
+ * The game logic was taken from the repo:                   *
+ * https://github.com/jneander/tic-tac-toe-go                *
+ *************************************************************/
+
 package ttts
 
 
@@ -7,7 +13,7 @@ import(
     "net"
     "time"
     "strings"
-    "./tic-tac-toe-go/ttt"
+    "./tic-tac-toe-go/ttt" // https://github.com/jneander/tic-tac-toe-go
 )
 
 
